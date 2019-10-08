@@ -9,6 +9,11 @@ if (!target.startsWith("http")) {
   process.exit(console.log("Pass url as last argument"));
 }
 
+let tunnel = null;
+if (process.argv.includes('--tunnel')) {
+  tunnel = true;
+}
+
 const port = process.env.BROWSER_SYNC_PORT || 10000;
 const uiPort = process.env.BROWSER_SYNC_UI_PORT || 10001;
 
@@ -33,5 +38,6 @@ bs.init({
   port,
   ui: {
     port: uiPort,
-  }
+  },
+  tunnel,
 });
