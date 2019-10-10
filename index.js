@@ -13,6 +13,7 @@ let tunnel = null;
 if (process.argv.includes('--tunnel')) {
   tunnel = true;
 }
+
 let useWs = undefined;
 if (process.argv.includes('--ws')) {
   useWs = true;
