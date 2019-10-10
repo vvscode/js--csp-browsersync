@@ -32,8 +32,8 @@ bs.init({
         const newCsp = new CspParse(cspHeader);
 
         if (useWs) {
-          newCsp.add("connect-src", `http://*:${uiPort}`);
-          newCsp.add("connect-src", `https://*:${uiPort}`);
+          newCsp.add("connect-src", `http://*:*`);
+          newCsp.add("connect-src", `https://*:*`);
         }
         newCsp.add("script-src", "'unsafe-inline'");
         newCsp.add("script-src", "'sha256-ThhI8UaSFEbbl6cISiZpnJ4Z44uNSq2tPKgyRTD3LyU='");
