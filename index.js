@@ -14,6 +14,11 @@ if (process.argv.includes('--tunnel')) {
   tunnel = true;
 }
 
+let useWs = undefined;
+if (process.argv.includes('--ws')) {
+  useWs = true;
+}
+
 const port = process.env.BROWSER_SYNC_PORT || 10000;
 const uiPort = process.env.BROWSER_SYNC_UI_PORT || 10001;
 
@@ -27,13 +32,18 @@ bs.init({
 
         const newCsp = new CspParse(cspHeader);
 
+        if (useWs) {
+          newCsp.add("connect-src", `http://*:*`);
+          newCsp.add("connect-src", `https://*:*`);
+        }
         newCsp.add("script-src", "'unsafe-inline'");
         newCsp.add("script-src", "'sha256-ThhI8UaSFEbbl6cISiZpnJ4Z44uNSq2tPKgyRTD3LyU='");
         const newCspString = newCsp.toString();
 
         proxyRes.headers["content-security-policy"] = newCspString;
       }
-    ]
+    ],
+    ws: useWs,
   },
   port,
   ui: {
